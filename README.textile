@@ -1,6 +1,6 @@
 The purpose of the software project is to develop a web-based application in PHP, HTML5 and JavaScript, to do mainly the following:
 
 # There is going to be a web server, which will handle various requests from its clients. It will store all data in a single database.
-#The client applications will run on web browsers. All user input will be taken from these client applications and be transferred directly to the web server.
+# The client applications will run on web browsers. All user input will be taken from these client applications and be transferred directly to the web server.
 
 The application functions and other details are given in the Requirements Specification Document.
