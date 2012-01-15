@@ -14,6 +14,7 @@ defined('APPLICATION_ENV')
 // Ensure that library and entity paths are on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/entities'),
+    realpath(APPLICATION_PATH . '/../library'),
     get_include_path()
 )));
 

@@ -1,0 +1,2 @@
+<input class="widthFull" type="text" name="<?= $this->o->getName() ?>" value="<?= $this->o->getValue() ?>" placeholder="<?= $this->o->getLabel() ?>" maxlength="<?= $this->o->getAttrib('maxlength') ?>"/>
+<?= $this->partial('/error/error-item.phtml', array('message' => array_values($this->o->getMessages()))) ?>

@@ -65,6 +65,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             APPLICATION_PATH . '/modules/cockpit/controllers/helpers',
             'ZFS_Cockpit_Controller_Helper'
         );
+        Zend_Controller_Action_HelperBroker::addPath(
+            APPLICATION_PATH . '/../library/SE/Controller/Helper',
+            'SE_Controller_Helper'
+        );
     }
 
     protected function _initLayouts() {
@@ -139,6 +143,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 array('module' => 'cockpit', 'controller' => 'index', 'action' => 'index')
             )
         );
+    }
+    
+    protected function _initConstants() {
+        Zend_Registry::set('SYSTEM_CONFIG', $this->getOption('system'));
     }
     
     /**

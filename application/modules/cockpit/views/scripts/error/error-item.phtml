@@ -1,0 +1,9 @@
+<? if (isset($this->message) && ! empty($this->message)): ?>
+    <? if (is_array($this->message)): ?>
+        <? foreach ($this->message as $msg): ?>
+        <span class="error"><?= $msg ?></span>
+        <? endforeach; ?>
+    <? else: ?>
+        <span class="error"><?= $this->message ?></span>
+    <? endif; ?>
+<? endif; ?>
