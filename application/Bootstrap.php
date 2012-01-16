@@ -149,6 +149,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         Zend_Registry::set('SYSTEM_CONFIG', $this->getOption('system'));
     }
     
+    protected function _initDoctrineTypes() {
+        // add custom types.
+        \Doctrine\DBAL\Types\Type::addType('patientType', 'App\Entity\Patient\Type');
+        \Doctrine\DBAL\Types\Type::addType('userGender', 'App\Entity\User\Gender');
+        \Doctrine\DBAL\Types\Type::addType('inpatientStatus', 'App\Entity\Patient\In\Status');
+        \Doctrine\DBAL\Types\Type::addType('inventoryType', 'App\Entity\Inventory\Type');
+        \Doctrine\DBAL\Types\Type::addType('meetingStatus', 'App\Entity\Meeting\Status');
+    }
+    
     /**
      * @TODO Update the Zend Framework and remove this method
      * A workaround for the problem occured during unit-testing (could not use

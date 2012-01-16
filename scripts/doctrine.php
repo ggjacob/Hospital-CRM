@@ -42,6 +42,11 @@ $bootstrap = $application->bootstrap()->getBootstrap();
 // Retrieve Doctrine Container resource
 $container = $bootstrap->getResource('doctrine');
 
+// @todo Automate this phase.
+// Add manually created types.
+\Doctrine\DBAL\Types\Type::addType('enum', 'App\Type\Enum');
+$container->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('ENUM', 'enum');
+
 // Console
 $cli = new \Symfony\Component\Console\Application(
     'Doctrine Command Line Interface',
