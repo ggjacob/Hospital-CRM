@@ -23,10 +23,16 @@ class Doctor extends \App\Entity
      */
     protected $meetings;
     
+    /**
+     * @OneToMany(targetEntity="LabRequest", mappedBy="doctor", fetch="LAZY")
+     */
+    protected $labRequests;
+    
     public function __construct() {
         parent::__construct();
         
         $this->meetings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->labRequests = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function getAvailableHours() {

@@ -90,6 +90,9 @@ class Cockpit_PatientController extends ZFS_Cockpit_Controller
         // set the form for the view.
         $this->view->form = $form;
         $this->view->meetings = $patient->meetings;
+        $this->view->labRequests = $patient->labRequests;
+        $this->view->logs = $patient->logs;
+        $this->view->patient = $patient;
     }
     
     public function listAction()
@@ -242,6 +245,34 @@ class Cockpit_PatientController extends ZFS_Cockpit_Controller
             'doctorId' => $doctorId,
             'patientId' => $patientId,
             'hour' => $hour
+        ));
+        
+        $this->_redirect('/cockpit/patient/' . $patientId);
+    }
+    
+    public function labAction()
+    {
+        $request = $this->getRequest();
+        
+        // fetch the entity manager.
+        $em = $this->_doctrineContainer->getEntityManager();
+        
+        // fetch the user id.
+        $doctorId = $em->getRepository('App\Entity\User')
+                     ->find(Zend_Auth::getInstance()->getIdentity()->id)
+                     ->doctor->id;
+        
+        // fetch the patient id.
+        $patientId = (int) $request->getParam('patientId');
+        
+        // fetch the details.
+        $details = trim($request->getParam('details'));
+
+        // schedule the meeting.
+        \App\Entity\LabRequest::request(array(
+            'doctorId' => $doctorId,
+            'patientId' => $patientId,
+            'details' => $details
         ));
         
         $this->_redirect('/cockpit/patient/' . $patientId);

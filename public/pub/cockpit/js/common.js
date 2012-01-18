@@ -92,6 +92,15 @@ $(document).ready(function() {
         
         return false;
     });
+    
+    $("a.labRequest").click(function() {
+        var details = prompt('Enter details');
+        var userId = $(this).attr("href").replace(/#labRequest/, '');
+        
+        window.location = 'lab?patientId=' + userId + '&details=' + details
+        
+        return false;
+    });
 });
 
 function fnGetDomain(url) {

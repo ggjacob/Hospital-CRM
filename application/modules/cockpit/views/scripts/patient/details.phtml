@@ -31,3 +31,50 @@
     <?= $this->partial('/error/error-item.phtml', $this->errorMessages['patient']) ?>
     <?= $this->form ?>
 </div>
+<div class="width_full noFloat clear center">
+    <h2>Lab Requests:</h2>
+<? if (count($this->labRequests) > 0): ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Request Time</th>
+                <th>Response Time</th>
+                <th>Doctor</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->labRequests as $labRequest): ?>
+            <tr>
+                <td><?= $labRequest->createdAt->format('Y-m-d H:i:s') ?></td>
+                <td><?= $labRequest->updatedAt->format('Y-m-d H:i:s') ?></td>
+                <td><?= $labRequest->doctor->user->name ?></td>
+                <td><?= $labRequest->details ?></td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+<? endif; ?>
+    <div class="width_full noFloat clear">
+        <a href="#labRequest<?= $this->patient->id ?>" class="labRequest">Make Laboratory Request</a>
+    </div>
+</div>
+<div class="width_full noFloat clear center">
+    <h2>Logs:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Log Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->logs as $log): ?>
+            <tr>
+                <td><?= $log->createdAt->format('Y-m-d H:i:s') ?></td>
+                <td><?= $log->message ?></td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+</div>

@@ -164,6 +164,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         \Doctrine\DBAL\Types\Type::addType('inpatientStatus', 'App\Entity\Patient\In\Status');
         \Doctrine\DBAL\Types\Type::addType('inventoryType', 'App\Entity\Inventory\Type');
         \Doctrine\DBAL\Types\Type::addType('meetingStatus', 'App\Entity\Meeting\Status');
+        \Doctrine\DBAL\Types\Type::addType('labRequestStatus', 'App\Entity\LabRequest\Status');
     }
     
     /**

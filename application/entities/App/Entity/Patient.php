@@ -71,9 +71,15 @@ class Patient extends \App\Entity
      */
     protected $paymentIsMade;
     
+    /**
+     * @OneToMany(targetEntity="LabRequest", mappedBy="patient", fetch="LAZY")
+     */
+    protected $labRequests;
+    
     public function __construct() {
         $this->medicineRequisitions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->meetings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->logs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->labRequests = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }
