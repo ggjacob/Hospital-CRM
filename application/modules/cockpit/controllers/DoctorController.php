@@ -139,4 +139,16 @@ class Cockpit_DoctorController extends ZFS_Cockpit_Controller
         // set the view instance for the grid.
         $this->view->grid = $grid;
     }
+    
+    public function scheduleAction() {
+        // fetch the entity manager.
+        $em = $this->_doctrineContainer->getEntityManager();
+        
+        // find corresponding doctors.
+        $doctor = $em->getRepository('App\Entity\User')
+                     ->find(Zend_Auth::getInstance()->getIdentity()->id)
+                     ->doctor;
+
+        $this->view->doctor = $doctor;
+    }
 }

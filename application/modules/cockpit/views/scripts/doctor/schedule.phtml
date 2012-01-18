@@ -1,0 +1,19 @@
+<div class="width_full noFloat clear center">
+    <h2>Showing meetings for today:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Hour</th>
+                <th>Patient</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->doctor->meetings as $meeting): ?>
+            <tr>
+                <td><?= $meeting->reservationDateTime->format('H:i') ?></td>
+                <td><a href="<?= $this->baseUrl("/cockpit/patient/" . $meeting->patient->id) ?>"><?= $meeting->patient->name . ' ' . $meeting->patient->surname ?></a></td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+</div>

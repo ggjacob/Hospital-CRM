@@ -28,6 +28,15 @@ class ZFS_Cockpit_Controller extends ZFS_Default_Controller
         
         // fetch the system settings.
         $this->view->systemConfig = Zend_Registry::get('SYSTEM_CONFIG');
+        
+        // fetch the user.
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+            $user = $this->_doctrineContainer->getEntityManager()
+                         ->getRepository('App\Entity\User')
+                         ->find(Zend_Auth::getInstance()->getIdentity()->id);
+
+            $this->view->role = $user->roles[0]->name;
+        }
     }
 }
 

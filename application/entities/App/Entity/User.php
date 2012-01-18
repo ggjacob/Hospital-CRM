@@ -32,6 +32,11 @@ class User extends \App\Entity implements \SE_Auth_Adapter_Doctrine_Model_User_I
      */
     protected $roles;
     
+    /**
+     * @OneToOne(targetEntity="Doctor", mappedBy="user", fetch="LAZY")
+     */
+    protected $doctor;
+    
     public function __construct() {
         $this->emailAuths = new ArrayCollection();
         $this->roles = new ArrayCollection();

@@ -9,7 +9,7 @@ namespace App\Entity;
 class Doctor extends \App\Entity
 {
     /**
-     * @OneToOne(targetEntity="User", fetch="LAZY")
+     * @OneToOne(targetEntity="User", inversedBy="doctor", fetch="LAZY")
      */
     protected $user;
     
