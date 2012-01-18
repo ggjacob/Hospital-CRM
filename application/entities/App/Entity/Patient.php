@@ -57,6 +57,11 @@ class Patient extends \App\Entity
     protected $meetings;
     
     /**
+     * @OneToMany(targetEntity="Log", mappedBy="patient", fetch="LAZY")
+     */
+    protected $logs;
+    
+    /**
      * @Column(type="float", nullable=false)
      */
     protected $paymentAmount;
@@ -69,5 +74,6 @@ class Patient extends \App\Entity
     public function __construct() {
         $this->medicineRequisitions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->meetings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->logs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

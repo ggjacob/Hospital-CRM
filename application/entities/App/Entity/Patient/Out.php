@@ -70,11 +70,19 @@ class Out extends \App\Entity\Patient
             $patient->advise = $data['advise'];
         }
         
+        // log.
+        $log = new \App\Entity\Log();
+        $log->message = 'Patient is registered to the system';
+        $log->patient = $patient;
+        $log->createdAt = $log->updatedAt = new \DateTime('now');
+        $patient->logs->add($log);
+        
         // fetch the entity manager.
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
         
         try {
             $em->persist($patient);
+            $em->persist($log);
             $em->flush();
         } catch (\Exception $ex) {
             \Zend_Registry::get('logger')->err('Could not register the patient. Error: ' . $ex->getMessage());
@@ -95,7 +103,7 @@ class Out extends \App\Entity\Patient
         if (empty($patient) || empty($patient->id)) {
             throw new \Exception('Patient not found!');
         }
-        
+
         // mandatory fields.
         $patient->name = $data['name'];
         $patient->surname = $data['surname'];
@@ -135,8 +143,16 @@ class Out extends \App\Entity\Patient
             $patient->advise = $data['advise'];
         }
         
+        // log.
+        $log = new \App\Entity\Log();
+        $log->message = 'Patient data is updated.';
+        $log->patient = $patient;
+        $log->createdAt = $log->updatedAt = new \DateTime('now');
+        $patient->logs->add($log);
+        
         try {
             $em->persist($patient);
+            $em->persist($log);
             $em->flush();
         } catch (\Exception $ex) {
             \Zend_Registry::get('logger')->err('Could not register the patient. Error: ' . $ex->getMessage());
