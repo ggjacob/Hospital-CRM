@@ -66,6 +66,14 @@ $(document).ready(function() {
         return false;
     });
     
+    if ("INPATIENT" == $("#patientType").val()) {
+        $("#fieldset-outpatient_information").hide();
+        $("#fieldset-inpatient_information").show();
+    } else if ("OUTPATIENT" == $("#patientType").val()) {
+        $("#fieldset-inpatient_information").hide();
+        $("#fieldset-outpatient_information").show();
+    }
+    
     $("#patientType").change(function() {
         if ("INPATIENT" == $(this).val()) {
             $("#fieldset-outpatient_information").hide();

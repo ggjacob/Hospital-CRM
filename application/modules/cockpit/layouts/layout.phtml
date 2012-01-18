@@ -38,8 +38,8 @@
             <ul class="toggle">
                 <li class="icn_add_user"><a href="<?= $this->baseUrl("/cockpit/patient/register") ?>">Registration</a></li>
                 <li class="icn_view_users"><a href="<?= $this->baseUrl("/cockpit/patient/list") ?>">View all</a></li>
-                <li class="icn_profile"><a href="<?= $this->baseUrl("/cockpit/patient/in") ?>">Inpatient Management</a></li>
-                <li class="icn_profile"><a href="<?= $this->baseUrl("/cockpit/patient/out") ?>">Outpatient Management</a></li>
+                <li class="icn_profile"><a href="<?= $this->baseUrl("/cockpit/patient/list?type=INPATIENT") ?>">Inpatient Management</a></li>
+                <li class="icn_profile"><a href="<?= $this->baseUrl("/cockpit/patient/list?type=OUTPATIENT") ?>">Outpatient Management</a></li>
             </ul>
             <h3>Doctor Management</h3>
             <ul class="toggle">
@@ -47,12 +47,15 @@
                 <li class="icn_view_users"><a href="<?= $this->baseUrl("/cockpit/doctor/list") ?>">View all</a></li>
                 <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/doctor/schedule") ?>">Schedules</a></li>
             </ul>
+            <?php /*
             <h3>Inventory</h3>
             <ul class="toggle">
                 <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/inventory/list") ?>">View all</a></li>
                 <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/inventory/category") ?>">Categories</a></li>
                 <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/inventory/vendor") ?>">Vendors</a></li>
             </ul>
+             * 
+             */ ?>
             <h3>Reports</h3>
             <ul class="toggle">
                 <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/report/patient") ?>">Patient</a></li>

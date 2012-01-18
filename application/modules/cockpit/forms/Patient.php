@@ -6,8 +6,26 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
     {
         parent::__construct();
         
+        $operation = 'register';
+        $id = null;
+        if ($data instanceof \App\Entity\Patient) {
+            $operation = 'update';
+            $id = $data->id;
+        }
+        
+        $patientType = null;
+        if ($data instanceof \App\Entity\Patient) {
+            if ($data instanceof \App\Entity\Patient\In) {
+                $patientType = \App\Entity\Patient\Type::INPATIENT;
+            } else if ($data instanceof \App\Entity\Patient\Out) {
+                $patientType = \App\Entity\Patient\Type::OUTPATIENT;
+            }
+        } else if (is_array($data) && ! empty($data['patientType'])) {
+            $patientType = $data['patientType'];
+        }
+        
         // init the form and add corresponding elements.
-        $this->_init()
+        $this->_init($operation, $id)
              
              // basic information.
              ->_addNameElement(SE_Util::getValueFromInput($data, 'name'))
@@ -19,8 +37,8 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
              ->_addContactNumberElement(SE_Util::getValueFromInput($data, 'contactNumber'))
              ->_addPaymentAmountElement(SE_Util::getValueFromInput($data, 'paymentAmount'))
              ->_addPaymentIsMadeElement(SE_Util::getValueFromInput($data, 'paymentIsMade'))
-             ->_addTypeElement(SE_Util::getValueFromInput($data, 'type'))
-             ->addDisplayGroup(array('name', 'surname', 'birthdate', 'gender', 'TCIdentityNumber', 'address', 'contactNumber', 'paymentAmount', 'paymentIsMade', 'type'), 'basic_information')
+             ->_addTypeElement($patientType)
+             ->addDisplayGroup(array('name', 'surname', 'birthdate', 'gender', 'TCIdentityNumber', 'address', 'contactNumber', 'paymentAmount', 'paymentIsMade', 'patientType'), 'basic_information')
              
              // outpatient.
              ->_addComplaintsElement(SE_Util::getValueFromInput($data, 'complaints'))
@@ -34,7 +52,7 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
              ->_addOperationIsRequiredElement(SE_Util::getValueFromInput($data, 'operationIsRequired'))
              ->addDisplayGroup(array('roomNumber', 'operationIsRequired'), 'inpatient_information')
                 
-             ->_addSubmitElement();
+             ->_addSubmitElement($operation, $id);
         
         $this->getDisplayGroup('basic_information')->removeDecorator('HtmlTag');
         $this->getDisplayGroup('basic_information')->removeDecorator('DtDdWrapper');
@@ -52,12 +70,16 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
         return $this;
     }
     
-    protected function _init()
+    protected function _init($operation, $id)
     {
         // fetch the view instance.
         $view = Zend_Layout::getMvcInstance()->getView();
         
-        $this->setAction($view->baseUrl('/cockpit/patient/register'));
+        if ('update' == $operation) {
+            $this->setAction($view->baseUrl('/cockpit/patient/' . $id));
+        } else {
+            $this->setAction($view->baseUrl('/cockpit/patient/register'));
+        }
         $this->setMethod('post');
         $this->setAttrib('enctype', 'multipart/form-data');
 
@@ -332,7 +354,7 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
     }
     
     protected function _addTypeElement($value) {
-        $textElement = new Zend_Form_Element_Select('type');
+        $textElement = new Zend_Form_Element_Select('patientType');
         $textElement->setLabel('Patient Type')
                     ->setAttrib('values', array(
                         \App\Entity\Patient\Type::OUTPATIENT => 'Outpatient',
@@ -352,7 +374,7 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
                             )
                         )
                     ));
-        
+
         // set the value if needed.
         if (! empty($value)) {
             $textElement->setValue($value);
@@ -373,17 +395,28 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
         return $this;
     }
     
-    protected function _addSubmitElement() {
+    protected function _addSubmitElement($operation, $id) {
         // add the operation type element.
         $operationTypeElement = new Zend_Form_Element_Hidden('operation');
         $operationTypeElement->setValue('register_patient');
         $operationTypeElement->removeDecorator('HtmlTag');
         $operationTypeElement->removeDecorator('Label');
         $this->addElement($operationTypeElement);
+        
+        $operationTypeElement = new Zend_Form_Element_Hidden('id');
+        $operationTypeElement->setValue($id);
+        $operationTypeElement->removeDecorator('HtmlTag');
+        $operationTypeElement->removeDecorator('Label');
+        $this->addElement($operationTypeElement);
 
         // create the submit element
         $submitElement = new Zend_Form_Element_Submit('submit_patient_register');
-        $submitElement->setLabel('Register Patient');
+        
+        if ('update' == $operation) {
+            $submitElement->setLabel('Update Patient');
+        } else {
+            $submitElement->setLabel('Register Patient');
+        }
         
         $submitElement->setDecorators(array(
             array('ViewScript', array(
@@ -550,10 +583,20 @@ class ZFS_Form_Cockpit_Patient extends Zend_Form
     // form operations.
     // -------------------------------------------------------------------------
     public static function save($data) {
-        if (\App\Entity\Patient\Type::OUTPATIENT == $data['type']) {
+        if (\App\Entity\Patient\Type::OUTPATIENT == $data['patientType']) {
             return \App\Entity\Patient\Out::register($data);
-        } else if (\App\Entity\Patient\Type::INPATIENT == $data['type']) {
+        } else if (\App\Entity\Patient\Type::INPATIENT == $data['patientType']) {
             return \App\Entity\Patient\In::register($data);
+        } else {
+            throw new Exception('Patient type is not supported!');
+        }
+    }
+    
+    public static function update($data) {
+        if (\App\Entity\Patient\Type::OUTPATIENT == $data['patientType']) {
+            return \App\Entity\Patient\Out::update($data);
+        } else if (\App\Entity\Patient\Type::INPATIENT == $data['patientType']) {
+            return \App\Entity\Patient\In::update($data);
         } else {
             throw new Exception('Patient type is not supported!');
         }

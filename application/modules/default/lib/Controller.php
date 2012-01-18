@@ -7,6 +7,8 @@ class ZFS_Default_Controller extends Zend_Controller_Action {
     protected $translate;
     protected $lang = 'en';
     
+    protected $_doctrineContainer;
+    
     /**
      * @var Zend_Log
      */
@@ -17,6 +19,9 @@ class ZFS_Default_Controller extends Zend_Controller_Action {
 
         // register the logger object
         $this->_logger = Zend_Registry::get('logger');
+        
+        // fetch the Doctrine Container instance.
+        $this->_doctrineContainer = Zend_Registry::get('doctrine');
     }
 
     protected function _initLocale() {
@@ -34,5 +39,16 @@ class ZFS_Default_Controller extends Zend_Controller_Action {
 
         $this->view->translate = $this->translate;
         Zend_Registry::set('translate', $this->translate);
+    }
+    
+    protected function _getPage() {
+        // try to fetch the page number.
+        $page = (int) $this->getRequest()->getParam('p');
+        
+        if (empty($page) || $page < 1) {
+            $page = 1;
+        }
+        
+        return $page;
     }
 }

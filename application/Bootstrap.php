@@ -143,6 +143,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 array('module' => 'cockpit', 'controller' => 'index', 'action' => 'index')
             )
         );
+        
+        $router->addRoute(
+            'cockpitModulePatientDetails',
+            new Zend_Controller_Router_Route('cockpit/patient/:patientId',
+                array('module' => 'cockpit', 'controller' => 'patient', 'action' => 'details', 'patientId' => 0),
+                array('patientId' => '[1-9][0-9]*')
+            )
+        );
     }
     
     protected function _initConstants() {
