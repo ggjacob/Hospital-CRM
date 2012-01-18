@@ -56,7 +56,7 @@
             <? if ('Administrator' == $this->role || 'Operator' == $this->role || 'Laboratory' == $this->role): ?>
             <h3>Laboratory Management</h3>
             <ul class="toggle">
-                <li class="icn_folder"><a href="<?= $this->baseUrl("/cockpit/laboratory/list") ?>">View all requests</a></li>
+                <li class="icn_folder"><a href="<?= $this->baseUrl("/cockpit/laboratory/request") ?>">View all requests</a></li>
             </ul>
             <? endif; ?>
             <? if ('Administrator' == $this->role || 'Operator' == $this->role): ?>

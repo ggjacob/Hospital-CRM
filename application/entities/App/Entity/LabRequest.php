@@ -76,7 +76,7 @@ class LabRequest extends \App\Entity
         
         $labRequest = $em->getRepository('App\Entity\LabRequest')
                               ->find($data['labRequestId']);
-        $labRequest->details = $data['details'];
+        $labRequest->results = $data['details'];
         $labRequest->status = \App\Entity\LabRequest\Status::DELIVERED;
         
         // log.
@@ -84,7 +84,7 @@ class LabRequest extends \App\Entity
         $log->message = 'Lab results for the patient are delivered.';
         $log->patient = $labRequest->patient;
         $log->createdAt = $log->updatedAt = new \DateTime('now');
-        $patient->logs->add($log);
+        $labRequest->patient->logs->add($log);
         
         $em->getConnection()->beginTransaction();
         try {

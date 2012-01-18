@@ -41,6 +41,7 @@
                 <th>Response Time</th>
                 <th>Doctor</th>
                 <th>Details</th>
+                <th>Results</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +51,7 @@
                 <td><?= $labRequest->updatedAt->format('Y-m-d H:i:s') ?></td>
                 <td><?= $labRequest->doctor->user->name ?></td>
                 <td><?= $labRequest->details ?></td>
+                <td><?= $labRequest->results ?></td>
             </tr>
             <? endforeach; ?>
         </tbody>

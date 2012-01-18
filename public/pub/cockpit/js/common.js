@@ -101,6 +101,15 @@ $(document).ready(function() {
         
         return false;
     });
+    
+    $("a.lab").click(function() {
+        var response = prompt('Enter response');
+        var requestId = $(this).attr("href").replace(/#respond/, '');
+        
+        window.location = 'respond?requestId=' + requestId + '&response=' + response
+        
+        return false;
+    });
 });
 
 function fnGetDomain(url) {
