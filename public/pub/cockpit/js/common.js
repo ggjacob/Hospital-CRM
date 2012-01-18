@@ -83,6 +83,15 @@ $(document).ready(function() {
             $("#fieldset-outpatient_information").show();
         }
     });
+    
+    $("a.reserve").click(function() {
+        var area = prompt('Enter doctor area');
+        var userId = $(this).attr("href").replace(/#reserve/, '');
+        
+        window.location = 'schedule?patientId=' + userId + '&area=' + area
+        
+        return false;
+    });
 });
 
 function fnGetDomain(url) {

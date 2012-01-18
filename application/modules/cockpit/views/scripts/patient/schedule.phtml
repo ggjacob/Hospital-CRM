@@ -1,0 +1,28 @@
+<div class="width_full noFloat clear center" id="patientEditFormWrapper">
+    <?= $this->partial('/error/error-item.phtml', $this->errorMessages['doctors']) ?>
+    <? if (isset($this->doctors)): ?>
+    <h2>Showing possible meetings for today:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Doctor</th>
+                <th>Available hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            <? foreach ($this->doctors as $doctor): ?>
+            <tr>
+                <td><?= $doctor->area ?></td>
+                <td><?= $doctor->user->name ?></td>
+                <td>
+                    <? foreach ($doctor->getAvailableHours() as $i => $hour): ?>
+                    <a href="<?= $this->baseUrl("/cockpit/patient/reserve?doctorId=" . $doctor->id . "&patientId=" . $this->patientId . "&hour=" . $hour) ?>" title="Reserve"><?= $hour ?></a>
+                    <? endforeach; ?>
+                </td>
+            </tr>
+            <? endforeach; ?>
+        </tbody>
+    </table>
+    <? endif; ?>
+</div>

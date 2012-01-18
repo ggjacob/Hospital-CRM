@@ -89,6 +89,7 @@ class Cockpit_PatientController extends ZFS_Cockpit_Controller
         
         // set the form for the view.
         $this->view->form = $form;
+        $this->view->meetings = $patient->meetings;
     }
     
     public function listAction()
@@ -133,6 +134,17 @@ class Cockpit_PatientController extends ZFS_Cockpit_Controller
             return '' . $data->id;
         });
         $grid->addField('edit_operation', '', $editOperation);
+        $reserveURL = new XGrid_DataField_Url();
+        $reserveURL->registerOnRender(function(XGrid_DataField_Event $event) {
+            $data = $event->getData();
+            $event->getDataField()->setDisplayText('Reserve');
+            $event->getDataField()->setAttributes(array(
+                'class' => 'reserve',
+                'title' => 'Make reservation'
+            ));
+            return '#reserve' . $data->id;
+        });
+        $grid->addField('reserve_url', '', $reserveURL);
         
         // set pagination.
         $paginator = new XGrid_Plugin_DefaultPaginator();
@@ -178,5 +190,60 @@ class Cockpit_PatientController extends ZFS_Cockpit_Controller
         
         // set the view instance for the grid.
         $this->view->grid = $grid;
+    }
+    
+    public function scheduleAction()
+    {
+        $request = $this->getRequest();
+        
+        // fetch the user id.
+        $userId = (int) $request->getParam('userId');
+        
+        // fetch the patient id.
+        $patientId = (int) $request->getParam('patientId');
+        
+        // fetch the area.
+        $area = trim($request->getParam('area'));
+        
+        // fetch the entity manager.
+        $em = $this->_doctrineContainer->getEntityManager();
+        
+        // find corresponding doctors.
+        $doctors = $em->getRepository('App\Entity\Doctor')
+                      ->findBy(array(
+                          'area' => $area
+                      ));
+        
+        if (0 == count($doctors)) {
+            $this->view->errorMessages['doctors'] = array(
+                'message' => 'No meeting possible.'
+            );
+        } else {
+            $this->view->doctors = $doctors;
+        }
+        
+        $this->view->patientId = $patientId;
+    }
+    
+    public function reserveAction()
+    {
+        $request = $this->getRequest();
+        
+        $doctorId = (int) $request->getParam('doctorId');
+        
+        // fetch the patient id.
+        $patientId = (int) $request->getParam('patientId');
+        
+        // fetch the hour.
+        $hour = $request->getParam('hour');
+        
+        // schedule the meeting.
+        \App\Entity\Meeting::reserve(array(
+            'doctorId' => $doctorId,
+            'patientId' => $patientId,
+            'hour' => $hour
+        ));
+        
+        $this->_redirect('/cockpit/patient/' . $patientId);
     }
 }
