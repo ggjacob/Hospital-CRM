@@ -51,7 +51,7 @@ class Role extends \App\Entity
      * 
      * @return int Id of the moderator role.
      */
-    public static function getModeretorRoleId() {
+    public static function getModeratorRoleId() {
         return 3;
     }
 

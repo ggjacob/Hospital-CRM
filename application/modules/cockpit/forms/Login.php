@@ -97,9 +97,9 @@ class ZFS_Form_Cockpit_Login extends Zend_Form
                             'validator' => 'StringLength',
                             'breakChainOnFailure' => true,
                             'options' => array(
-                                'min' => 8,
+                                'min' => 4,
                                 'messages' => array(
-                                    Zend_Validate_StringLength::TOO_SHORT => 'The password should contain at least 8 characters!'
+                                    Zend_Validate_StringLength::TOO_SHORT => 'The password should contain at least 4 characters!'
                                 )
                             )
                         )

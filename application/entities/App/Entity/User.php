@@ -49,12 +49,15 @@ class User extends \App\Entity implements \SE_Auth_Adapter_Doctrine_Model_User_I
      * @param string $password
      * @return User 
      */
-    public static function register($data) {
+    public static function register($data, $roleId = null) {
         // create a new email authmethod instance for email/password pair.
         $emailAuth = new AuthMethod\Email();
         $emailAuth->email = $data['email'];
         $emailAuth->password = md5($data['password']);
         $emailAuth->createdAt = $emailAuth->updatedAt = new \DateTime("now");
+        if ($roleId != null) {
+            $emailAuth->status = 'ACTIVE';
+        }
         
         // fetch the entity manager.
         $em = \Zend_Registry::get('doctrine')->getEntityManager();
@@ -63,9 +66,15 @@ class User extends \App\Entity implements \SE_Auth_Adapter_Doctrine_Model_User_I
         $user = new User();
         $user->name = $data['name'];
         $user->emailAuths->add($emailAuth);
-        $user->roles->add($em->getRepository('App\Entity\Role')->find(
-            Role::getModeratorRoleId()
-        ));
+        if (null == $roleId) {
+            $user->roles->add($em->getRepository('App\Entity\Role')->find(
+                Role::getModeratorRoleId()
+            ));
+        } else {
+            $user->roles->add($em->getRepository('App\Entity\Role')->find(
+                $roleId
+            ));
+        }
         $user->createdAt = $user->updatedAt = new \DateTime("now");
         $emailAuth->user = $user;
 
