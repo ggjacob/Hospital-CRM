@@ -1,0 +1,8 @@
+<label>
+    <? if (1 == $this->o->getValue()): ?>
+    <input type="checkbox" name="<?= $this->o->getName() ?>" value="1" checked="checked" />
+    <? else: ?>
+    <input type="checkbox" name="<?= $this->o->getName() ?>" value="1" />
+    <? endif; ?>
+    <span><?= $this->o->getLabel() ?></span>
+</label>

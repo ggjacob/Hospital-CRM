@@ -920,3 +920,7 @@ font-size: 14px;}
 #main table tbody tr td.td_2 {
     text-align: center;
 }
+#fieldset-outpatient_information,
+#fieldset-inpatient_information {
+    display: none;
+}

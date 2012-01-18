@@ -9,7 +9,7 @@ namespace App\Entity;
 class Meeting extends \App\Entity
 {
     /**
-     * @ManyToOne(targetEntity="Doctor", fetch="LAZY")
+     * @ManyToOne(targetEntity="Doctor", inversedBy="meetings", fetch="LAZY")
      */
     protected $doctor;
     

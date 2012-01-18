@@ -1,0 +1,2 @@
+<input class="widthFull datetime" type="text" name="<?= $this->o->getName() ?>" value="<?= $this->o->getValue() ?>" placeholder="<?= $this->o->getLabel() ?>" />
+<?= $this->partial('/error/error-item.phtml', array('message' => array_values($this->o->getMessages()))) ?>

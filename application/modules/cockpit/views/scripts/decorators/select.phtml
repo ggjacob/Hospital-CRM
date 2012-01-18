@@ -1,0 +1,18 @@
+<?php
+$id = $this->o->getAttrib('id');
+?>
+<? if (! empty($id)): ?>
+<select class="widthFull" name="<?= $this->o->getName() ?>" id="<?= $id ?>">
+<? else: ?>
+<select class="widthFull" name="<?= $this->o->getName() ?>">
+<? endif; ?>
+    <option value=""><?= $this->o->getLabel() ?></option>
+    <? foreach ($this->o->getAttrib('values') as $key => $value): ?>
+        <? if ($key == $this->o->getValue()): ?>
+            <option value="<?= $key ?>" selected="selected"><?= $value ?></option>
+        <? else: ?>
+            <option value="<?= $key ?>"><?= $value ?></option>
+        <? endif; ?>
+    <? endforeach; ?>
+</select>
+<?= $this->partial('/error/error-item.phtml', array('message' => array_values($this->o->getMessages()))) ?>

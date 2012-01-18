@@ -65,7 +65,7 @@ class ZFS_Form_Cockpit_Login extends Zend_Form
 
         $textElement->setDecorators(array(
             array('ViewScript', array(
-                    'viewScript' => '/auth/decorators/text.phtml',
+                    'viewScript' => '/decorators/text.phtml',
                     'o' => $textElement
             )),
             array('HtmlTag', array('tag' => 'p'))
@@ -112,7 +112,7 @@ class ZFS_Form_Cockpit_Login extends Zend_Form
        
         $textElement->setDecorators(array(
             array('ViewScript', array(
-                    'viewScript' => '/auth/decorators/password.phtml',
+                    'viewScript' => '/decorators/password.phtml',
                     'o' => $textElement
             )),
             array('HtmlTag', array('tag' => 'p'))
@@ -139,7 +139,7 @@ class ZFS_Form_Cockpit_Login extends Zend_Form
         
         $submitElement->setDecorators(array(
             array('ViewScript', array(
-                    'viewScript' => '/auth/decorators/submit.phtml',
+                    'viewScript' => '/decorators/submit.phtml',
                     'o' => $submitElement
             )),
             array('HtmlTag', array('tag' => 'p', 'class' => 'widthFull innerRight'))

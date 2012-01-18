@@ -1,0 +1,2 @@
+<textarea class="widthFull" name="<?= $this->o->getName() ?>" placeholder="<?= $this->o->getLabel() ?>" rows="5"><?= $this->o->getValue() ?></textarea>
+<?= $this->partial('/error/error-item.phtml', array('message' => array_values($this->o->getMessages()))) ?>
