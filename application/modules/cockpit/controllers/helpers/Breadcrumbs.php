@@ -33,6 +33,15 @@ class ZFS_Cockpit_Controller_Helper_Breadcrumbs extends Zend_Controller_Action_H
                         $actionDesc = 'Login';
                 }
                 break;
+            case 'patient':
+                $controllerDesc = 'Patient Management';
+                $controllerLink = 'register';
+                // set the action description.
+                switch ($action) {
+                    case 'register':
+                        $actionDesc = 'Register';
+                }
+                break;
         }
 
         // return the breadcrumbs string.
