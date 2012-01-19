@@ -30,10 +30,6 @@
         </section><!-- end of secondary bar -->
         
         <aside id="sidebar" class="column" style="height: 100%;">
-            <form class="quick_search">
-                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;" />
-            </form>
-            <hr/>
             <? if ('Administrator' == $this->role || 'Operator' == $this->role): ?>
             <h3>Patient Management</h3>
             <ul class="toggle">
@@ -57,12 +53,6 @@
             <h3>Laboratory Management</h3>
             <ul class="toggle">
                 <li class="icn_folder"><a href="<?= $this->baseUrl("/cockpit/laboratory/request") ?>">View all requests</a></li>
-            </ul>
-            <? endif; ?>
-            <? if ('Administrator' == $this->role || 'Operator' == $this->role): ?>
-            <h3>Reports</h3>
-            <ul class="toggle">
-                <li class="icn_categories"><a href="<?= $this->baseUrl("/cockpit/report/patient") ?>">Patient</a></li>
             </ul>
             <? endif; ?>
         </aside><!-- end of sidebar -->

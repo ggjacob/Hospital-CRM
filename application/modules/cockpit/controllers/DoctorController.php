@@ -104,17 +104,6 @@ class Cockpit_DoctorController extends ZFS_Cockpit_Controller
             $userField->addKey('user')->addKey('name')
         );
         $grid->addField('area', 'Area', XGrid_DataField::TEXT);
-        $editOperation = new XGrid_DataField_Url();
-        $editOperation->registerOnRender(function(XGrid_DataField_Event $event) {
-            $data = $event->getData();
-            $event->getDataField()->setDisplayText('Edit');
-            $event->getDataField()->setAttributes(array(
-                'class' => 'edit',
-                'title' => 'Edit doctor data'
-            ));
-            return '' . $data->id;
-        });
-        $grid->addField('edit_operation', '', $editOperation);
         
         // set pagination.
         $paginator = new XGrid_Plugin_DefaultPaginator();

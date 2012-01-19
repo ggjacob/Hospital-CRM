@@ -26,6 +26,6 @@ class Cockpit_LaboratoryController extends ZFS_Cockpit_Controller
             'details' => $response
         ));
         
-        $this->_redirect('/cockpit/lab/request');
+        $this->_redirect('/cockpit/laboratory/request');
     }
 }

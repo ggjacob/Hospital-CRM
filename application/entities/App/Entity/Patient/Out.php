@@ -66,8 +66,8 @@ class Out extends \App\Entity\Patient
             $patient->diagnosis = $data['diagnosis'];
         }
         
-        if (isset($data['advise'])) {
-            $patient->advise = $data['advise'];
+        if (isset($data['advice'])) {
+            $patient->advise = $data['advice'];
         }
         
         // log.

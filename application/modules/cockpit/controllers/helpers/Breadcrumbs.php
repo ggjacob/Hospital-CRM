@@ -40,6 +40,35 @@ class ZFS_Cockpit_Controller_Helper_Breadcrumbs extends Zend_Controller_Action_H
                 switch ($action) {
                     case 'register':
                         $actionDesc = 'Register';
+                        break;
+                    case 'list':
+                        $actionDesc = 'View all';
+                }
+                break;
+            case 'doctor':
+                $controllerDesc = 'Doctor Management';
+                $controllerLink = 'register';
+                // set the action description.
+                switch ($action) {
+                    case 'register':
+                        $actionDesc = 'Register';
+                        break;
+                    case 'list':
+                        $actionDesc = 'View all';
+                        break;
+                    case 'schedule':
+                        $actionDesc = 'Schedules';
+                        break;
+                }
+                break;
+            case 'laboratory':
+                $controllerDesc = 'Laboratory Management';
+                $controllerLink = 'laboratory';
+                // set the action description.
+                switch ($action) {
+                    case 'request':
+                        $actionDesc = 'View All Requests';
+                        break;
                 }
                 break;
         }
